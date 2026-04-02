@@ -29,17 +29,12 @@ function Router() {
 
   return (
     <Switch>
-      {!isAuthenticated ? (
-        <Route path="/" component={Landing} />
-      ) : (
-        <>
-          <Route path="/" component={Dashboard} />
-          <Route path="/mood-check" component={MoodCheck} />
-          <Route path="/history" component={History} />
-          <Route path="/support" component={Support} />
-        </>
-      )}
-      <Route component={NotFound} />
+      <Route path="/" component={Landing} />
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/mood-check" component={MoodCheck} />
+      <Route path="/history" component={History} />
+      <Route path="/support" component={Support} />
+      <Route path="/:rest*" component={NotFound} />
     </Switch>
   );
 }
