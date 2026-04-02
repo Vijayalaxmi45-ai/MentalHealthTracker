@@ -1,28 +1,28 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, Heart, Music, Target, Users, Shield } from "lucide-react";
-
-export default function Landing() {
-  const handleLogin = () => {
-    window.location.href = "/api/login";
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-[var(--mindtune-neutral-50)] to-[var(--mindtune-neutral-100)]">
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = Landing;
+const button_1 = require("@/components/ui/button");
+const card_1 = require("@/components/ui/card");
+const lucide_react_1 = require("lucide-react");
+function Landing() {
+    const handleLogin = () => {
+        window.location.href = "/api/login";
+    };
+    return (<div className="min-h-screen bg-gradient-to-br from-[var(--mindtune-neutral-50)] to-[var(--mindtune-neutral-100)]">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm border-b border-[var(--mindtune-neutral-200)] sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-gradient-to-br from-[var(--mindtune-primary)] to-[var(--mindtune-secondary)] rounded-xl flex items-center justify-center">
-                <Brain className="w-6 h-6 text-white" />
+                <lucide_react_1.Brain className="w-6 h-6 text-white"/>
               </div>
               <h1 className="text-xl font-semibold text-[var(--mindtune-neutral-800)]">MindTune</h1>
             </div>
             
-            <Button onClick={handleLogin} className="bg-[var(--mindtune-primary)] hover:bg-[var(--mindtune-primary)]/90 text-white">
+            <button_1.Button onClick={handleLogin} className="bg-[var(--mindtune-primary)] hover:bg-[var(--mindtune-primary)]/90 text-white">
               Get Started
-            </Button>
+            </button_1.Button>
           </div>
         </div>
       </header>
@@ -32,7 +32,7 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <div className="w-20 h-20 mx-auto mb-8 bg-gradient-to-br from-[var(--mindtune-primary)] to-[var(--mindtune-secondary)] rounded-2xl flex items-center justify-center">
-              <Brain className="w-12 h-12 text-white" />
+              <lucide_react_1.Brain className="w-12 h-12 text-white"/>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-[var(--mindtune-neutral-900)] mb-6">
               Your Mental Health,
@@ -46,20 +46,12 @@ export default function Landing() {
               and receive personalized therapy recommendations—all in one beautiful, secure app.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                onClick={handleLogin}
-                size="lg"
-                className="bg-[var(--mindtune-primary)] hover:bg-[var(--mindtune-primary)]/90 text-white px-8 py-4 text-lg"
-              >
+              <button_1.Button onClick={handleLogin} size="lg" className="bg-[var(--mindtune-primary)] hover:bg-[var(--mindtune-primary)]/90 text-white px-8 py-4 text-lg">
                 Start Your Journey
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="border-[var(--mindtune-primary)] text-[var(--mindtune-primary)] hover:bg-[var(--mindtune-primary)] hover:text-white px-8 py-4 text-lg"
-              >
+              </button_1.Button>
+              <button_1.Button variant="outline" size="lg" className="border-[var(--mindtune-primary)] text-[var(--mindtune-primary)] hover:bg-[var(--mindtune-primary)] hover:text-white px-8 py-4 text-lg">
                 Learn More
-              </Button>
+              </button_1.Button>
             </div>
           </div>
         </div>
@@ -79,77 +71,77 @@ export default function Landing() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="border-[var(--mindtune-neutral-200)] hover:shadow-lg transition-shadow">
-              <CardHeader>
+            <card_1.Card className="border-[var(--mindtune-neutral-200)] hover:shadow-lg transition-shadow">
+              <card_1.CardHeader>
                 <div className="w-12 h-12 bg-gradient-to-br from-[var(--mindtune-primary)] to-[var(--mindtune-secondary)] rounded-xl flex items-center justify-center mb-4">
-                  <Heart className="w-6 h-6 text-white" />
+                  <lucide_react_1.Heart className="w-6 h-6 text-white"/>
                 </div>
-                <CardTitle className="text-[var(--mindtune-neutral-800)]">Daily Mood Tracking</CardTitle>
-                <CardDescription className="text-[var(--mindtune-neutral-600)]">
+                <card_1.CardTitle className="text-[var(--mindtune-neutral-800)]">Daily Mood Tracking</card_1.CardTitle>
+                <card_1.CardDescription className="text-[var(--mindtune-neutral-600)]">
                   Log your emotions with intuitive emoji selectors and journal entries
-                </CardDescription>
-              </CardHeader>
-            </Card>
+                </card_1.CardDescription>
+              </card_1.CardHeader>
+            </card_1.Card>
 
-            <Card className="border-[var(--mindtune-neutral-200)] hover:shadow-lg transition-shadow">
-              <CardHeader>
+            <card_1.Card className="border-[var(--mindtune-neutral-200)] hover:shadow-lg transition-shadow">
+              <card_1.CardHeader>
                 <div className="w-12 h-12 bg-gradient-to-br from-[var(--mindtune-secondary)] to-[var(--mindtune-primary)] rounded-xl flex items-center justify-center mb-4">
-                  <Brain className="w-6 h-6 text-white" />
+                  <lucide_react_1.Brain className="w-6 h-6 text-white"/>
                 </div>
-                <CardTitle className="text-[var(--mindtune-neutral-800)]">AI-Powered Insights</CardTitle>
-                <CardDescription className="text-[var(--mindtune-neutral-600)]">
+                <card_1.CardTitle className="text-[var(--mindtune-neutral-800)]">AI-Powered Insights</card_1.CardTitle>
+                <card_1.CardDescription className="text-[var(--mindtune-neutral-600)]">
                   Get personalized analysis and suggestions based on your mood patterns
-                </CardDescription>
-              </CardHeader>
-            </Card>
+                </card_1.CardDescription>
+              </card_1.CardHeader>
+            </card_1.Card>
 
-            <Card className="border-[var(--mindtune-neutral-200)] hover:shadow-lg transition-shadow">
-              <CardHeader>
+            <card_1.Card className="border-[var(--mindtune-neutral-200)] hover:shadow-lg transition-shadow">
+              <card_1.CardHeader>
                 <div className="w-12 h-12 bg-gradient-to-br from-[var(--mindtune-accent)] to-[var(--mindtune-primary)] rounded-xl flex items-center justify-center mb-4">
-                  <Music className="w-6 h-6 text-white" />
+                  <lucide_react_1.Music className="w-6 h-6 text-white"/>
                 </div>
-                <CardTitle className="text-[var(--mindtune-neutral-800)]">Mood-Based Music</CardTitle>
-                <CardDescription className="text-[var(--mindtune-neutral-600)]">
+                <card_1.CardTitle className="text-[var(--mindtune-neutral-800)]">Mood-Based Music</card_1.CardTitle>
+                <card_1.CardDescription className="text-[var(--mindtune-neutral-600)]">
                   Discover songs and playlists that match and enhance your current mood
-                </CardDescription>
-              </CardHeader>
-            </Card>
+                </card_1.CardDescription>
+              </card_1.CardHeader>
+            </card_1.Card>
 
-            <Card className="border-[var(--mindtune-neutral-200)] hover:shadow-lg transition-shadow">
-              <CardHeader>
+            <card_1.Card className="border-[var(--mindtune-neutral-200)] hover:shadow-lg transition-shadow">
+              <card_1.CardHeader>
                 <div className="w-12 h-12 bg-gradient-to-br from-[var(--mindtune-secondary)] to-[var(--mindtune-accent)] rounded-xl flex items-center justify-center mb-4">
-                  <Target className="w-6 h-6 text-white" />
+                  <lucide_react_1.Target className="w-6 h-6 text-white"/>
                 </div>
-                <CardTitle className="text-[var(--mindtune-neutral-800)]">Therapy Activities</CardTitle>
-                <CardDescription className="text-[var(--mindtune-neutral-600)]">
+                <card_1.CardTitle className="text-[var(--mindtune-neutral-800)]">Therapy Activities</card_1.CardTitle>
+                <card_1.CardDescription className="text-[var(--mindtune-neutral-600)]">
                   Access guided exercises for breathing, meditation, and mindfulness
-                </CardDescription>
-              </CardHeader>
-            </Card>
+                </card_1.CardDescription>
+              </card_1.CardHeader>
+            </card_1.Card>
 
-            <Card className="border-[var(--mindtune-neutral-200)] hover:shadow-lg transition-shadow">
-              <CardHeader>
+            <card_1.Card className="border-[var(--mindtune-neutral-200)] hover:shadow-lg transition-shadow">
+              <card_1.CardHeader>
                 <div className="w-12 h-12 bg-gradient-to-br from-[var(--mindtune-primary)] to-[var(--mindtune-accent)] rounded-xl flex items-center justify-center mb-4">
-                  <Users className="w-6 h-6 text-white" />
+                  <lucide_react_1.Users className="w-6 h-6 text-white"/>
                 </div>
-                <CardTitle className="text-[var(--mindtune-neutral-800)]">Progress Tracking</CardTitle>
-                <CardDescription className="text-[var(--mindtune-neutral-600)]">
+                <card_1.CardTitle className="text-[var(--mindtune-neutral-800)]">Progress Tracking</card_1.CardTitle>
+                <card_1.CardDescription className="text-[var(--mindtune-neutral-600)]">
                   Visualize your mental health journey with charts and insights
-                </CardDescription>
-              </CardHeader>
-            </Card>
+                </card_1.CardDescription>
+              </card_1.CardHeader>
+            </card_1.Card>
 
-            <Card className="border-[var(--mindtune-neutral-200)] hover:shadow-lg transition-shadow">
-              <CardHeader>
+            <card_1.Card className="border-[var(--mindtune-neutral-200)] hover:shadow-lg transition-shadow">
+              <card_1.CardHeader>
                 <div className="w-12 h-12 bg-gradient-to-br from-[var(--mindtune-accent)] to-[var(--mindtune-secondary)] rounded-xl flex items-center justify-center mb-4">
-                  <Shield className="w-6 h-6 text-white" />
+                  <lucide_react_1.Shield className="w-6 h-6 text-white"/>
                 </div>
-                <CardTitle className="text-[var(--mindtune-neutral-800)]">Emergency Support</CardTitle>
-                <CardDescription className="text-[var(--mindtune-neutral-600)]">
+                <card_1.CardTitle className="text-[var(--mindtune-neutral-800)]">Emergency Support</card_1.CardTitle>
+                <card_1.CardDescription className="text-[var(--mindtune-neutral-600)]">
                   Access crisis resources and professional help when you need it most
-                </CardDescription>
-              </CardHeader>
-            </Card>
+                </card_1.CardDescription>
+              </card_1.CardHeader>
+            </card_1.Card>
           </div>
         </div>
       </section>
@@ -163,13 +155,9 @@ export default function Landing() {
           <p className="text-xl text-white/90 mb-8">
             Join thousands of users who have improved their mental wellbeing with MindTune.
           </p>
-          <Button 
-            onClick={handleLogin}
-            size="lg"
-            className="bg-white text-[var(--mindtune-primary)] hover:bg-white/90 px-8 py-4 text-lg font-semibold hover-glow"
-          >
+          <button_1.Button onClick={handleLogin} size="lg" className="bg-white text-[var(--mindtune-primary)] hover:bg-white/90 px-8 py-4 text-lg font-semibold">
             Get Started for Free
-          </Button>
+          </button_1.Button>
         </div>
       </section>
 
@@ -178,7 +166,7 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-3 mb-4">
             <div className="w-8 h-8 bg-gradient-to-br from-[var(--mindtune-primary)] to-[var(--mindtune-secondary)] rounded-lg flex items-center justify-center">
-              <Brain className="w-5 h-5 text-white" />
+              <lucide_react_1.Brain className="w-5 h-5 text-white"/>
             </div>
             <span className="text-lg font-semibold">MindTune</span>
           </div>
@@ -190,6 +178,5 @@ export default function Landing() {
           </p>
         </div>
       </footer>
-    </div>
-  );
+    </div>);
 }
