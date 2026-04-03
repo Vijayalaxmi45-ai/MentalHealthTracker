@@ -13,6 +13,8 @@ import { Heart, Flame, TrendingUp, Leaf } from "lucide-react";
 
 import AffirmationWidget from "@/components/affirmation";
 
+import MoodAnalytics from "@/components/mood-analytics";
+
 export default function Dashboard() {
   const { user } = useAuth();
   
@@ -119,7 +121,8 @@ export default function Dashboard() {
           <TherapyActivities />
         </div>
 
-        {/* Mood History */}
+        {/* Mood History & Analytics */}
+        <MoodAnalytics />
         <MoodCalendar />
 
         {/* Emergency Support */}
