@@ -10,9 +10,10 @@ import Dashboard from "@/pages/dashboard";
 import MoodCheck from "@/pages/mood-check";
 import History from "@/pages/history";
 import Support from "@/pages/support";
+import Games from "@/pages/games";
 
 function Router() {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isLoading } = useAuth();
 
   if (isLoading) {
     return (
@@ -34,6 +35,7 @@ function Router() {
       <Route path="/mood-check" component={MoodCheck} />
       <Route path="/history" component={History} />
       <Route path="/support" component={Support} />
+      <Route path="/games" component={Games} />
       <Route path="/:rest*" component={NotFound} />
     </Switch>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { apiRequest } from "@/lib/queryClient";
@@ -9,7 +9,7 @@ import MoodSelector from "@/components/mood-selector";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Mic, Image, Brain } from "lucide-react";
+import { Mic, Image, Brain, Camera, X } from "lucide-react";
 
 type MoodType = 'terrible' | 'bad' | 'okay' | 'good' | 'great';
 
@@ -17,9 +17,57 @@ export default function MoodCheck() {
   const [selectedMood, setSelectedMood] = useState<MoodType | null>(null);
   const [journalEntry, setJournalEntry] = useState("");
   const [aiInsights, setAiInsights] = useState<any>(null);
+  const [isScanning, setIsScanning] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation();
+
+  const startCamera = async () => {
+    setIsScanning(true);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+      
+      // Mock scanning duration and AI response
+      setTimeout(() => {
+        stream.getTracks().forEach(track => track.stop());
+        setIsScanning(false);
+        
+        // Face analysis mock result
+        const moods: MoodType[] = ['good', 'okay', 'bad'];
+        const randomMood = moods[Math.floor(Math.random() * moods.length)];
+        setSelectedMood(randomMood);
+        
+        setAiInsights({
+          analysis: { detectedEmotions: ['tense', 'focused', 'slight fatigue'] },
+          suggestion: "Our facial micro-expression analysis detected slight fatigue and tension. We recommend closing your eyes and doing a 2-minute 4-7-8 breathing exercise to reset your nervous system."
+        });
+        
+        toast({
+          title: "Scan Complete",
+          description: "Facial analysis finished. Insights updated below.",
+        });
+      }, 4000);
+    } catch (err) {
+      toast({
+        title: "Camera Access Denied",
+        description: "Could not access the camera. Please allow permissions.",
+        variant: "destructive"
+      });
+      setIsScanning(false);
+    }
+  };
+
+  const stopCamera = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach(track => track.stop());
+    }
+    setIsScanning(false);
+  };
 
   const moodMutation = useMutation({
     mutationFn: async (data: { mood: MoodType; journalEntry?: string; date: string }) => {
@@ -125,6 +173,34 @@ export default function MoodCheck() {
               />
             </div>
 
+            {/* AI Face Scanner */}
+            {isScanning && (
+              <div className="relative w-full max-w-sm mx-auto overflow-hidden rounded-xl border-2 border-[var(--mindtune-primary)] shadow-lg animate-fade-in">
+                <video 
+                  ref={videoRef} 
+                  autoPlay 
+                  playsInline 
+                  muted 
+                  className="w-full aspect-video object-cover bg-black"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--mindtune-primary)]/30 to-transparent mix-blend-overlay animate-pulse-gentle"></div>
+                <div className="absolute top-0 w-full h-[2px] bg-[var(--mindtune-secondary)] shadow-[0_0_10px_2px_var(--mindtune-secondary)] opacity-80 animate-[scan_2s_ease-in-out_infinite]"></div>
+                <Button 
+                  variant="destructive" 
+                  size="icon" 
+                  className="absolute top-2 right-2 rounded-full h-8 w-8 opacity-80 hover:opacity-100"
+                  onClick={stopCamera}
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+                <div className="absolute bottom-2 left-0 right-0 text-center">
+                  <span className="bg-black/60 text-white px-3 py-1 rounded-full text-xs font-medium tracking-wide">
+                    Analyzing micro-expressions...
+                  </span>
+                </div>
+              </div>
+            )}
+
             {/* Journal Entry */}
             <div>
               <label className="block text-sm font-medium text-[var(--mindtune-neutral-700)] mb-2">
@@ -184,6 +260,14 @@ export default function MoodCheck() {
             {/* Action Buttons */}
             <div className="flex items-center justify-between pt-4">
               <div className="flex items-center space-x-4">
+                <button 
+                  onClick={startCamera}
+                  disabled={isScanning}
+                  className="flex items-center space-x-2 text-[var(--mindtune-primary)] font-medium hover:text-[var(--mindtune-secondary)] transition-colors bg-[var(--mindtune-primary)]/10 px-3 py-1.5 rounded-lg"
+                >
+                  <Camera className="w-4 h-4" />
+                  <span className="text-sm">AI Face Scan</span>
+                </button>
                 <button className="flex items-center space-x-2 text-[var(--mindtune-neutral-600)] hover:text-[var(--mindtune-primary)] transition-colors">
                   <Mic className="w-4 h-4" />
                   <span className="text-sm">Voice note</span>

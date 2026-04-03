@@ -11,6 +11,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Heart, Flame, TrendingUp, Leaf } from "lucide-react";
 
+import AffirmationWidget from "@/components/affirmation";
+
 export default function Dashboard() {
   const { user } = useAuth();
   
@@ -33,7 +35,7 @@ export default function Dashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-20 md:pb-8">
         {/* Welcome Section */}
         <section className="mb-8 animate-fade-in">
-          <div className="bg-gradient-to-r from-[var(--mindtune-primary)] to-[var(--mindtune-secondary)] rounded-2xl p-8 text-white relative overflow-hidden">
+          <div className="bg-gradient-to-r from-[var(--mindtune-primary)] to-[var(--mindtune-secondary)] rounded-2xl p-8 text-white relative overflow-hidden hover-glow">
             <div className="relative z-10">
               <h2 className="text-2xl md:text-3xl font-semibold mb-2">
                 {greeting}, {userName}! 🌅
@@ -42,16 +44,19 @@ export default function Dashboard() {
                 How are you feeling today? Take a moment to check in with yourself.
               </p>
               <Link href="/mood-check">
-                <Button className="bg-white text-[var(--mindtune-primary)] hover:bg-white/90 px-6 py-3 rounded-xl font-medium">
+                <Button className="bg-white text-[var(--mindtune-primary)] hover:bg-white/90 px-6 py-3 rounded-xl font-medium shadow-md transition-transform hover:scale-105 active:scale-95">
                   <Heart className="w-4 h-4 mr-2" />
                   Start Daily Check-in
                 </Button>
               </Link>
             </div>
-            <div className="absolute -right-4 -top-4 w-32 h-32 bg-white opacity-10 rounded-full"></div>
-            <div className="absolute -right-8 -bottom-8 w-24 h-24 bg-white opacity-5 rounded-full"></div>
+            <div className="absolute -right-4 -top-4 w-32 h-32 bg-white opacity-10 rounded-full animate-pulse-gentle"></div>
+            <div className="absolute -right-8 -bottom-8 w-24 h-24 bg-white opacity-5 rounded-full animate-[pulse_3s_ease-in-out_infinite]"></div>
           </div>
         </section>
+
+        {/* Positive Affirmation Widget */}
+        <AffirmationWidget />
 
         {/* Quick Stats */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

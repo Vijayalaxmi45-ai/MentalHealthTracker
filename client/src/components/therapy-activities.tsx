@@ -130,6 +130,25 @@ export default function TherapyActivities() {
       </CardHeader>
 
       <CardContent className="space-y-4">
+        {/* Games Link */}
+        <div className="therapy-card rounded-xl p-4 border border-[var(--mindtune-neutral-200)] mb-4 bg-gradient-to-r from-blue-50 to-indigo-50">
+          <div className="flex items-start space-x-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-indigo-400 to-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <Zap className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex-1">
+              <h4 className="font-medium text-sm mb-1">Interactive Stress Relief</h4>
+              <p className="text-xs text-[var(--mindtune-neutral-600)] mb-2">Pop soothing bubbles to reset your mental state and relieve anxiety.</p>
+            </div>
+          </div>
+          <Button 
+            onClick={() => window.location.href='/games'}
+            className="w-full mt-4 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium transition-transform hover:scale-105"
+          >
+            Play Bubble Pop
+          </Button>
+        </div>
+
         {displayActivities.length === 0 ? (
           <p className="text-[var(--mindtune-neutral-600)]">No activities available at the moment.</p>
         ) : (
