@@ -43,12 +43,19 @@ export default function Dashboard() {
               <p className="text-lg opacity-90 mb-6">
                 How are you feeling today? Take a moment to check in with yourself.
               </p>
-              <Link href="/mood-check">
-                <Button className="bg-white text-[var(--mindtune-primary)] hover:bg-white/90 px-6 py-3 rounded-xl font-medium shadow-md transition-transform hover:scale-105 active:scale-95">
-                  <Heart className="w-4 h-4 mr-2" />
-                  Start Daily Check-in
-                </Button>
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link href="/mood-check">
+                  <Button className="bg-white text-[var(--mindtune-primary)] hover:bg-white/90 px-6 py-3 rounded-xl font-medium shadow-md transition-transform hover:scale-105 active:scale-95 w-full sm:w-auto">
+                    <Heart className="w-4 h-4 mr-2" />
+                    Start Daily Check-in
+                  </Button>
+                </Link>
+                <Link href="/focus">
+                  <Button className="bg-transparent border border-white text-white hover:bg-white/10 px-6 py-3 rounded-xl font-medium shadow-md transition-transform hover:scale-105 active:scale-95 w-full sm:w-auto">
+                    Enter Focus Vault
+                  </Button>
+                </Link>
+              </div>
             </div>
             <div className="absolute -right-4 -top-4 w-32 h-32 bg-white opacity-10 rounded-full animate-pulse-gentle"></div>
             <div className="absolute -right-8 -bottom-8 w-24 h-24 bg-white opacity-5 rounded-full animate-[pulse_3s_ease-in-out_infinite]"></div>

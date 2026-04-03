@@ -11,6 +11,7 @@ import MoodCheck from "@/pages/mood-check";
 import History from "@/pages/history";
 import Support from "@/pages/support";
 import Games from "@/pages/games";
+import FocusMode from "@/pages/focus";
 
 function Router() {
   const { isLoading } = useAuth();
@@ -36,6 +37,7 @@ function Router() {
       <Route path="/history" component={History} />
       <Route path="/support" component={Support} />
       <Route path="/games" component={Games} />
+      <Route path="/focus" component={FocusMode} />
       <Route path="/:rest*" component={NotFound} />
     </Switch>
   );
