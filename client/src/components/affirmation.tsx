@@ -8,7 +8,13 @@ const affirmations = [
   "Every day is a new beginning. Take a deep breath and start again.",
   "You are stronger than your anxiety.",
   "It's okay to prioritize your own well-being.",
-  "Small steps forward are still steps."
+  "Small steps forward are still steps.",
+  "You are enough just as you are.",
+  "Your potential is limitless.",
+  "You choose to be happy today.",
+  "Everything is working out for your highest good.",
+  "You are resilient and powerful.",
+  "You are creating a life you love."
 ];
 
 export default function AffirmationWidget() {

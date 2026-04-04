@@ -10,9 +10,10 @@ import {
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
 import { Brain, Bell, User, Settings, LogOut } from "lucide-react";
+import { ThemeToggle } from "./theme-toggle";
 
 export default function Header() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [location] = useLocation();
 
   const isActive = (path: string) => {
@@ -20,15 +21,11 @@ export default function Header() {
   };
 
   const handleLogout = () => {
-    window.location.href = "/api/logout";
+    logout();
   };
 
-  const userInitials = user?.firstName && user?.lastName 
-    ? `${user.firstName[0]}${user.lastName[0]}` 
-    : user?.firstName 
-    ? user.firstName[0] 
-    : user?.email
-    ? user.email[0].toUpperCase()
+  const userInitials = user?.name 
+    ? user.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()
     : "U";
 
   return (
@@ -47,11 +44,11 @@ export default function Header() {
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/">
+            <Link href="/dashboard">
               <span className={`cursor-pointer transition-colors ${
-                isActive('/') 
-                  ? 'text-[var(--mindtune-primary)] font-medium' 
-                  : 'text-[var(--mindtune-neutral-600)] hover:text-[var(--mindtune-primary)]'
+                isActive('/dashboard') 
+                  ? 'text-primary font-bold' 
+                  : 'text-slate-600 hover:text-primary'
               }`}>
                 Dashboard
               </span>
@@ -87,9 +84,10 @@ export default function Header() {
 
           {/* User Menu */}
           <div className="flex items-center space-x-4">
+            <ThemeToggle />
             <Button variant="ghost" size="sm" className="relative">
-              <Bell className="w-5 h-5 text-[var(--mindtune-neutral-600)]" />
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-[var(--mindtune-accent)] rounded-full"></span>
+              <Bell className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full"></span>
             </Button>
             
             <DropdownMenu>
@@ -107,7 +105,7 @@ export default function Header() {
               <DropdownMenuContent className="w-56" align="end" forceMount>
                 <div className="flex flex-col space-y-1 p-2">
                   <p className="text-sm font-medium leading-none">
-                    {user?.firstName ? `${user.firstName} ${user.lastName || ''}`.trim() : 'User'}
+                    {user?.name || 'User'}
                   </p>
                   <p className="text-xs leading-none text-muted-foreground">
                     {user?.email}

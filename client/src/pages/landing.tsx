@@ -4,7 +4,7 @@ import { Brain, Heart, Music, Target, Users, Shield } from "lucide-react";
 
 export default function Landing() {
   const handleLogin = () => {
-    window.location.href = "/dashboard";
+    window.location.href = "/auth";
   };
 
   return (

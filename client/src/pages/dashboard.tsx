@@ -9,24 +9,24 @@ import TherapyActivities from "@/components/therapy-activities";
 import EmergencySupport from "@/components/emergency-support";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Heart, Flame, TrendingUp, Leaf } from "lucide-react";
+import { Heart, Flame, TrendingUp, Leaf, Moon, Zap, BookOpen } from "lucide-react";
 
 import AffirmationWidget from "@/components/affirmation";
-
 import MoodAnalytics from "@/components/mood-analytics";
+import JournalEntry from "@/components/journal-entry";
+import StressTracker from "@/components/stress-tracker";
+import SleepTracker from "@/components/sleep-tracker";
+import MeditationTimer from "@/components/meditation-timer";
+import AiSuggestions from "@/components/ai-suggestions";
 
 export default function Dashboard() {
   const { user } = useAuth();
   
-  const { data: stats } = useQuery({
-    queryKey: ["/api/user/stats"],
+  const { data: moodHistory } = useQuery({
+    queryKey: ["/api/mood/history"],
   });
 
-  const { data: recentEntries } = useQuery({
-    queryKey: ["/api/mood-entries"],
-  });
-
-  const userName = user?.firstName || "there";
+  const userName = user?.name || "there";
   const currentHour = new Date().getHours();
   const greeting = currentHour < 12 ? "Good morning" : currentHour < 18 ? "Good afternoon" : "Good evening";
 
@@ -36,97 +36,76 @@ export default function Dashboard() {
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-20 md:pb-8">
         {/* Welcome Section */}
-        <section className="mb-8 animate-fade-in">
-          <div className="bg-gradient-to-r from-[var(--mindtune-primary)] to-[var(--mindtune-secondary)] rounded-2xl p-8 text-white relative overflow-hidden hover-glow">
+        <section className="mb-8 animate-fade-in text-center md:text-left">
+          <div className="bg-gradient-to-r from-primary to-indigo-600 rounded-3xl p-8 text-white relative overflow-hidden shadow-xl">
             <div className="relative z-10">
-              <h2 className="text-2xl md:text-3xl font-semibold mb-2">
+              <h2 className="text-3xl md:text-4xl font-bold mb-3">
                 {greeting}, {userName}! 🌅
               </h2>
-              <p className="text-lg opacity-90 mb-6">
-                How are you feeling today? Take a moment to check in with yourself.
+              <p className="text-xl opacity-90 mb-8 max-w-2xl">
+                Your journey to mental wellness continues. Remember, every step counts.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <Link href="/mood-check">
-                  <Button className="bg-white text-[var(--mindtune-primary)] hover:bg-white/90 px-6 py-3 rounded-xl font-medium shadow-md transition-transform hover:scale-105 active:scale-95 w-full sm:w-auto">
-                    <Heart className="w-4 h-4 mr-2" />
-                    Start Daily Check-in
+                  <Button className="bg-white text-primary hover:bg-white/90 px-8 py-6 rounded-2xl font-bold text-lg shadow-lg transition-all hover:scale-105 active:scale-95 w-full sm:w-auto">
+                    <Heart className="w-5 h-5 mr-3 fill-current" />
+                    How are you feeling?
                   </Button>
                 </Link>
                 <Link href="/focus">
-                  <Button className="bg-transparent border border-white text-white hover:bg-white/10 px-6 py-3 rounded-xl font-medium shadow-md transition-transform hover:scale-105 active:scale-95 w-full sm:w-auto">
-                    Enter Focus Vault
+                  <Button variant="outline" className="bg-transparent border-2 border-white text-white hover:bg-white/20 px-8 py-6 rounded-2xl font-bold text-lg shadow-lg transition-all hover:scale-105 active:scale-95 w-full sm:w-auto">
+                    Center Your Mind
                   </Button>
                 </Link>
               </div>
             </div>
-            <div className="absolute -right-4 -top-4 w-32 h-32 bg-white opacity-10 rounded-full animate-pulse-gentle"></div>
-            <div className="absolute -right-8 -bottom-8 w-24 h-24 bg-white opacity-5 rounded-full animate-[pulse_3s_ease-in-out_infinite]"></div>
+            <div className="absolute -right-10 -top-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+            <div className="absolute -left-10 -bottom-10 w-48 h-48 bg-indigo-400/20 rounded-full blur-2xl"></div>
           </div>
         </section>
 
-        {/* Positive Affirmation Widget */}
-        <AffirmationWidget />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <div className="lg:col-span-2 space-y-8">
+                {/* AI Suggestions & Affirmations */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <AiSuggestions currentMood={moodHistory?.[0]?.mood} />
+                    <AffirmationWidget />
+                </div>
 
-        {/* Quick Stats */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="border-[var(--mindtune-neutral-200)] shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Current Streak</CardTitle>
-              <div className="w-12 h-12 bg-gradient-to-br from-[var(--mindtune-secondary)] to-[var(--mindtune-primary)] rounded-xl flex items-center justify-center">
-                <Flame className="w-6 h-6 text-white" />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-[var(--mindtune-primary)] mb-2">
-                {stats?.currentStreak || 0}
-              </div>
-              <p className="text-[var(--mindtune-neutral-600)] text-sm">days in a row</p>
-            </CardContent>
-          </Card>
+                {/* Tracking Tools */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <StressTracker />
+                    <SleepTracker />
+                </div>
 
-          <Card className="border-[var(--mindtune-neutral-200)] shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">This Week</CardTitle>
-              <div className="w-12 h-12 bg-gradient-to-br from-[var(--mindtune-accent)] to-[var(--mindtune-primary)] rounded-xl flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-white" />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-[var(--mindtune-secondary)] mb-2">
-                {stats?.averageMood || 0}
-              </div>
-              <p className="text-[var(--mindtune-neutral-600)] text-sm">average mood</p>
-            </CardContent>
-          </Card>
+                <JournalEntry />
+                
+                {/* Visualizations */}
+                <MoodAnalytics />
+                <MoodCalendar />
+            </div>
 
-          <Card className="border-[var(--mindtune-neutral-200)] shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Activities</CardTitle>
-              <div className="w-12 h-12 bg-gradient-to-br from-[var(--mindtune-primary)] to-[var(--mindtune-accent)] rounded-xl flex items-center justify-center">
-                <Leaf className="w-6 h-6 text-white" />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-[var(--mindtune-accent)] mb-2">
-                {stats?.weeklyActivities || 0}
-              </div>
-              <p className="text-[var(--mindtune-neutral-600)] text-sm">completed this week</p>
-            </CardContent>
-          </Card>
-        </section>
+            <div className="space-y-8">
+                <MeditationTimer />
+                
+                <Card className="border-none shadow-md bg-gradient-to-br from-amber-50 to-orange-50">
+                    <CardHeader>
+                        <CardTitle className="text-lg font-bold flex items-center gap-2">
+                            <Flame className="w-5 h-5 text-orange-500" />
+                            Daily Streak
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-4xl font-black text-orange-600">5 Days</div>
+                        <p className="text-sm text-orange-700 font-medium">Keep it up! You're doing great.</p>
+                    </CardContent>
+                </Card>
 
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <MusicPlayer />
-          <TherapyActivities />
+                <MusicPlayer />
+                <TherapyActivities />
+                <EmergencySupport />
+            </div>
         </div>
-
-        {/* Mood History & Analytics */}
-        <MoodAnalytics />
-        <MoodCalendar />
-
-        {/* Emergency Support */}
-        <EmergencySupport />
       </main>
 
       <BottomNav />

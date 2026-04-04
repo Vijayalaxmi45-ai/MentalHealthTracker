@@ -11,9 +11,9 @@ export default function BottomNav() {
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-[var(--mindtune-neutral-200)] px-4 py-2">
       <div className="flex justify-around items-center">
-        <Link href="/">
+        <Link href="/dashboard">
           <div className={`flex flex-col items-center space-y-1 py-2 px-3 cursor-pointer ${
-            isActive('/') 
+            isActive('/dashboard') 
               ? 'text-[var(--mindtune-primary)]' 
               : 'text-[var(--mindtune-neutral-400)]'
           }`}>

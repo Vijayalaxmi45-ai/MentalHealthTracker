@@ -1,6 +1,7 @@
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/useAuth";
@@ -13,17 +14,35 @@ import Support from "@/pages/support";
 import Games from "@/pages/games";
 import FocusMode from "@/pages/focus";
 
+import AuthPage from "@/pages/auth";
+import { useLocation } from "wouter";
+import { useEffect } from "react";
+
+function ProtectedRoute({ component: Component, ...props }: any) {
+  const { user, isLoading, isAuthenticated } = useAuth();
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      setLocation("/auth");
+    }
+  }, [isLoading, isAuthenticated, setLocation]);
+
+  if (isLoading) return null;
+  return isAuthenticated ? <Component {...props} /> : null;
+}
+
 function Router() {
   const { isLoading } = useAuth();
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--mindtune-neutral-50)]">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
-          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[var(--mindtune-primary)] to-[var(--mindtune-secondary)] rounded-2xl flex items-center justify-center">
+          <div className="w-16 h-16 mx-auto mb-4 bg-primary rounded-2xl flex items-center justify-center">
             <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
           </div>
-          <p className="text-[var(--mindtune-neutral-600)]">Loading MindTune...</p>
+          <p className="text-muted-foreground">Loading MindTune...</p>
         </div>
       </div>
     );
@@ -32,12 +51,25 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Landing} />
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/mood-check" component={MoodCheck} />
-      <Route path="/history" component={History} />
-      <Route path="/support" component={Support} />
-      <Route path="/games" component={Games} />
-      <Route path="/focus" component={FocusMode} />
+      <Route path="/auth" component={AuthPage} />
+      <Route path="/dashboard">
+          <ProtectedRoute component={Dashboard} />
+      </Route>
+      <Route path="/mood-check">
+          <ProtectedRoute component={MoodCheck} />
+      </Route>
+      <Route path="/history">
+          <ProtectedRoute component={History} />
+      </Route>
+      <Route path="/support">
+          <ProtectedRoute component={Support} />
+      </Route>
+      <Route path="/games">
+          <ProtectedRoute component={Games} />
+      </Route>
+      <Route path="/focus">
+          <ProtectedRoute component={FocusMode} />
+      </Route>
       <Route path="/:rest*" component={NotFound} />
     </Switch>
   );
@@ -46,10 +78,12 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
